@@ -4,6 +4,7 @@ import { UserInfo } from '../../model/userInfo'
 import { RegisterPage } from '../register/register';
 import { WelcomePage } from '../welcome/welcome';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AlertController } from 'ionic-angular';
 
 @Component({
     selector: 'page-home',
@@ -12,7 +13,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class HomePage {
 
     user = new UserInfo();
-    constructor(public navCtrl: NavController, private afAuth: AngularFireAuth) {
+    constructor(public navCtrl: NavController, private afAuth: AngularFireAuth, public alertCtrl: AlertController) {
     }
 
     async login(user: UserInfo) {
@@ -25,9 +26,21 @@ export class HomePage {
 
         } catch (e) {
             console.log(e);
+            this.showAlert();
         }
 
     }
+
+
+    showAlert() {
+        let alert = this.alertCtrl.create({
+            //title: 'Please Enter correct EmialId and Password!',
+             subTitle: 'Please Enter correct Emial Address and Password!!',
+            buttons: ['OK']
+        });
+        alert.present();
+    }
+
 
     register() {
         this.navCtrl.push(RegisterPage);
